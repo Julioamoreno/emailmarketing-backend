@@ -10,4 +10,6 @@ router.get('/me', passport.authenticate('jwt', {session: false}), user.search);
 
 router.post('/register', user.store);
 
+router.put('/profile-update', passport.authenticate('jwt', {session: false}), user.update);
+
 module.exports = router;
