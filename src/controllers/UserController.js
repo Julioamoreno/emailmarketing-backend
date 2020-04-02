@@ -1,16 +1,15 @@
 const User = require('../models/user');
-const cfg = require('../../config');
 
 const jwt = require('jwt-simple');
 
 const UserController = {
     async store (req, res) {
         let data = {
-            name : req.body.name,
+            name : req.body.nome,
             email : req.body.email,
             password : req.body.password,
             accounts:[{
-                name: req.body.account_name,
+                name: req.body.nomeConta,
                 role: 'owner',
                 enabled: true
             }]
@@ -18,7 +17,8 @@ const UserController = {
 
         let newUser = await User.create(data)
             .catch(err =>{
-            res.status(422).json({err})
+                console.log(err)
+                res.status(422).json({err})
             }
         );
 
@@ -36,13 +36,12 @@ const UserController = {
         res.status(200).json(user);
     },
     async auth(req, res){
-        const { username, password } = req.body;
-
-        if(!username || !password) {
+        const { email, password } = req.body;
+        if(!email || !password) {
             return res.status(400).send('Unathorized');
         }
         
-        const user = await User.findOne({email: username, password})
+        const user = await User.findOne({email , password})
             .catch(err => {
                 res.status(500).json({err});
         })
@@ -51,9 +50,16 @@ const UserController = {
             return res.status(401).send('Unathorized');
         }
         const payload = { id: user.id };
-        const token = jwt.encode(payload, cfg.jwtSecret);
-        return res.json({token: token});
+        const token = jwt.encode(payload,  process.env.JWTSECRET);
+        return res.json({
+            token: token,
+            nome: user.name
 
+        });
+
+    },
+    async update(req, res){
+        return res.send('teste');
     }
 
 }
