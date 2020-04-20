@@ -5,7 +5,7 @@ function CrudService (model) {
 CrudService.prototype.list = function () {
     return new Promise((resolve) => {
         this.model.find(null, (err, result) => {
-            return resolve({data: result})
+            return resolve(result)
         })
     })
 }
@@ -16,7 +16,7 @@ CrudService.prototype.add = function (data) {
             if (err) {
                 return reject({err});
             }
-            return resolve({data: result});
+            return resolve(result);
         })
     })
 }
@@ -27,7 +27,7 @@ CrudService.prototype.listOne = function (id) {
             if (err) {
                 return reject({err});
             }
-            return resolve({data: result});
+            return resolve(result);
         })
     })
 }
@@ -42,7 +42,7 @@ CrudService.prototype.edit = function (id, data) {
             if (err) {
                 return reject({err});
             }
-            return resolve({result});
+            return resolve(result);
         })
     })
 }
@@ -53,7 +53,7 @@ CrudService.prototype.delete = function (id) {
             if (err) {
                 return reject({err});
             }
-            return resolve({data: result});
+            return resolve(result);
         })
     })
 }
