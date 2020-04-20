@@ -5,7 +5,7 @@ const jwt = require('jwt-simple');
 const UserController = {
     async store (req, res) {
         let data = {
-            name : req.body.nome,
+            nome : req.body.nome,
             email : req.body.email,
             password : req.body.password,
             accounts:[{
@@ -53,7 +53,7 @@ const UserController = {
         const token = jwt.encode(payload,  process.env.JWTSECRET);
         return res.json({
             token: token,
-            nome: user.name
+            nome: user.nome,
 
         });
 
