@@ -40,7 +40,7 @@ const ListsController = {
         );
     },
     edit (req, res) {
-        service.edit(req.params.id)
+        service.edit(req.params.id, req.body)
             .then(result => {
                 return res.json(result);
 
