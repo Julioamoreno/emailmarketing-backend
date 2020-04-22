@@ -15,7 +15,6 @@ const Lead = mongoose.Schema({
     ],
     lists: [
         {
-            title: String,
             type: ObjectId,
             ref: 'List'
         }
