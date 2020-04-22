@@ -17,7 +17,7 @@ router.use('/users', users);
 router.use('/api', passport.authenticate('jwt', {session: false}));
 
 router.use('/api', campaign);
-router.use('/api', lead);
+router.use(lead);
 router.use('/api', list);
 
 
