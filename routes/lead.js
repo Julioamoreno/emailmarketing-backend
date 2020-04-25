@@ -7,7 +7,8 @@ const { check } = require('express-validator');
 router.post('/leads/subscribe',[
     check('email','não é um email').isEmail().normalizeEmail(),
     check('list','Lista é um campo obrigatorio.').exists()
-  ], leadController.subscribe);
+  ], leadController.subscribe
+);
 
 router.get('/api/leads', leadController.show); //retornar varios
 
