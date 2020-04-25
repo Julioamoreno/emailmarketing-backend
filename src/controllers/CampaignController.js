@@ -40,7 +40,18 @@ const ListsController = {
         );
     },
     edit (req, res) {
-        service.edit(req.params.id, req.body)
+        let data = req.body;
+        // data.lists = [];
+        Object.keys(req.body).forEach((element, index) => {
+            console.log(element)
+            if (element.startsWith('lists[')) {
+                data.lists.push( req.body[element] );
+            } else {
+                data[element] = req.body[element];
+            }
+        });
+        
+        service.edit(req.params.id, data)
             .then(result => {
                 return res.json(result);
 

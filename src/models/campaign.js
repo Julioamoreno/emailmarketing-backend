@@ -15,7 +15,6 @@ const Caimpaign = mongoose.Schema({
     bounces: { type: Number, default: 0 },
     lists: [
         {
-            title: String,
             type: ObjectId,
             ref: 'List'
         }

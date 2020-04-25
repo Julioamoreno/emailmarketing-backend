@@ -93,16 +93,12 @@ const LeadsController = {
         )
     },
     showOne (req, res) {
-
-        service.listOne(req.params.id)
-            .then(result => {
-                return res.json(result);
-
-            })
-            .catch(err =>{
-                return res.status(400).json({err});
+        leadModel.findById((req.params.id)).populate('lists').exec((err, result) => {
+            if (err) {
+                return res.status(404).json(err);
             }
-        );
+            return res.json(result);
+        })
     },
     edit (req, res) {
         service.edit(req.params.id)
