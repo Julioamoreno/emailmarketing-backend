@@ -8,7 +8,7 @@ module.exports = function (to, subject, html) {
             from: 'Empresa teste <julioarmando@julioamoreno.com>',
             to: [to],
             subject: subject,
-            html: html
+            html: html,
         })
         .then(msg => console.log(msg))
         .catch(err => console.log(err));
