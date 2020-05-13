@@ -1,11 +1,12 @@
 let mongoose = require('mongoose');
+require('dotenv').config();
 
-mongoose.connect('mongodb://localhost:27017/email_marketing', {
+mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}${process.env.MONGO_URL}`, {
     useNewUrlParser: true,    
     useCreateIndex: true,
     useUnifiedTopology: true
 }).catch(err => {
-    console.log('Mongoose error ', err);
+    console.log('Mongoose connection error ', err);
 });
 
 module.exports = mongoose;
