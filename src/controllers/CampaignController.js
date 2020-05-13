@@ -1,5 +1,5 @@
 const campaign = require('../models/campaign');
-
+const tracker = require('../email/tracker');
 const ServiceList = require('../services/Crud');
 const service = new ServiceList(campaign);
 
@@ -71,6 +71,23 @@ const ListsController = {
                 return res.status(400).json({err});
             }
         );
+    },
+    renderEmail(req, res) {
+        campaign.findById(req.params.id, (err, result) => {
+            if (err) {
+                return res.status(404).send('Not Found');
+            }
+            return res.render('mail_render', { body: result.body })
+        });
+    },
+    inrenderEmail(req, res) {
+        campaign.findById(req.params.id, (err, result) => {
+            if (err) {
+                return res.status(404).send('Not Found');
+            }
+            const body = tracker(result.body, req.params.id, req.params.leadid)
+            return res.render('mail_render', { body: body })
+        });
     },
 }
 module.exports = ListsController;
