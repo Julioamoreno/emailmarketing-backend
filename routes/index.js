@@ -18,7 +18,7 @@ router.use(tracking);
 //criando middleware para as rotas /api
 router.use('/api', passport.authenticate('jwt', {session: false}));
 
-router.use('/api', campaign);
+router.use(campaign); //contem o /api em algumas rotas
 router.use(lead);
 router.use('/api', list);
 
