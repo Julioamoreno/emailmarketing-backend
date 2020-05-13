@@ -3,13 +3,15 @@ const sender = require('../src/email/sender');
 const campaignModel = require('../src/models/campaign');
 const leadModel = require('../src/models/lead');
 const tracker = require('../src/email/tracker');
+const hoje = require('moment');
 
 async function send() {
-    const now = new Date();
+    let now = hoje().format();
+    
     const campaigns = await campaignModel.find({
-        start: {$lt: now},
-        status: null,
+        start: {$lt: now}
     });
+    console.log(`${now} e ${campaigns}`)
     // let leads = [];
 
     for (let i=0; i < campaigns.length; i++) {
@@ -24,7 +26,8 @@ async function send() {
                 campaigns[i]._id,
                 lead._id
             );
-            sender(lead.email, campaign[i].title, mailBody);
+            const retor =  sender(lead.email, campaigns[i].title, mailBody);
+            console.log(`${lead.email}, ${campaigns[i].title}, ${mailBody}  ${retor}`);
         });
         campaigns[i].status = 'enviado';
         campaigns[i].save();
